@@ -1,6 +1,4 @@
-"""Creating ReST documents."""
-
-from __future__ import division, absolute_import, print_function
+"""Simple ReST table."""
 
 class Table:
     def __init__(self, header_fields):
@@ -13,7 +11,8 @@ class Table:
             raise ValueError("row has wrong length")
         self.rows.append(row)
 
-    def write(self, stream):
+    def __str__(self):
+        result = ""
         field_maxlen = [len(field) for field in self.header_fields]
         for row in self.rows:
             for i, field in enumerate(row):
@@ -22,19 +21,18 @@ class Table:
             "{0:=<{1}}".format("", maxlen)
             for field, maxlen in zip(self.header_fields, field_maxlen)
             )
-        print(separator, file=stream)
-        print(
-            " ".join(
-                "{0: <{1}}".format(field, maxlen)
-                for field, maxlen in zip(self.header_fields, field_maxlen)),
-            file=stream,
-            )
-        print(separator, file=stream)
+        result += separator
+        result += "\n"
+        result += " ".join(
+            "{0: <{1}}".format(field, maxlen)
+            for field, maxlen in zip(self.header_fields, field_maxlen))
+        result += "\n"
+        result += separator
+        result += "\n"
         for row in self.rows:
-            print(
-                " ".join(
-                    "{0: <{1}}".format(field, maxlen)
-                    for field, maxlen in zip(row, field_maxlen)),
-                file=stream,
-                )
-        print(separator, file=stream)
+            result += " ".join(
+                "{0: <{1}}".format(field, maxlen)
+                for field, maxlen in zip(row, field_maxlen))
+            result += "\n"
+        result += separator
+        return result

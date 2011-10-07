@@ -1,5 +1,6 @@
+from __future__ import division, absolute_import, print_function
+
 import nose.tools
-from StringIO import StringIO
 
 from quickrest.table import Table
 
@@ -8,15 +9,11 @@ def test_table_init():
     table.add_row(["John", 3])
     table.add_row(["Bob", 9.2])
     table.add_row(["Alice", 107])
-    stream = StringIO()
-    table.write(stream)
-    nose.tools.assert_equal(
-        stream.getvalue(), """\
+    nose.tools.assert_equal(str(table), """\
 ===== ===
 name  age
 ===== ===
 John  3  
 Bob   9.2
 Alice 107
-===== ===
-""")
+===== ===""")
