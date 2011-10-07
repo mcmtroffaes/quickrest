@@ -27,4 +27,4 @@ class Document:
         return table
 
     def __str__(self):
-        return "\n\n".join(children)
+        return "\n\n".join(str(child) for child in self.children)

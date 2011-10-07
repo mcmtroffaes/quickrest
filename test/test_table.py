@@ -1,10 +1,8 @@
-from __future__ import division, absolute_import, print_function
-
 import nose.tools
 
 from quickrest.table import Table
 
-def test_table_init():
+def test_table():
     table = Table(["name", "age"])
     table.add_row(["John", 3])
     table.add_row(["Bob", 9.2])
