@@ -8,15 +8,15 @@ class Document:
 
     def add_chapter(self, title):
         self.children.append(
-            "{0}\n{1:=<{2}}".format(title, "", len(title))
+            "{0}\n{1:=<{2}}".format(title, "", len(title)))
 
     def add_section(self, title):
         self.children.append(
-            "{0}\n{1:-<{2}}".format(title, "", len(title))
+            "{0}\n{1:-<{2}}".format(title, "", len(title)))
 
     def add_subsection(self, title):
         self.children.append(
-            "{0}\n{1:~<{2}}".format(title, "", len(title))
+            "{0}\n{1:~<{2}}".format(title, "", len(title)))
 
     def add_paragraph(self, text):
         self.children.append(str(text))
