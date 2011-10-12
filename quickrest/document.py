@@ -34,3 +34,16 @@ class Document:
 
     def __str__(self):
         return "\n\n".join(str(child) for child in self.children)
+
+    def writepdf(self, filename, args=None):
+        """Export document to a pdf file."""
+        import rst2pdf.createpdf
+        if args is None:
+            args = []
+        if not filename.endswith(".pdf"):
+            txtfile = filename + ".txt"
+        else:
+            txtfile = filename.replace(".pdf", ".txt")
+        with open(txtfile, "wb") as stream:
+            stream.write(str(self))
+        rst2pdf.createpdf.main([txtfile] + args)
