@@ -20,7 +20,7 @@ class Document:
             "{0}\n{1:~<{2}}".format(title, "", len(title)))
 
     def add_paragraph(self, text):
-        self.children.append(str(text))
+        self.children.append(text)
 
     def add_table(self, header_fields):
         table = quickrest.table.Table(header_fields)
