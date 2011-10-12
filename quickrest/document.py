@@ -1,6 +1,7 @@
 """Creating ReST documents."""
 
 import quickrest.table
+import quickrest.lst
 
 class Document:
     def __init__(self):
@@ -25,6 +26,11 @@ class Document:
         table = quickrest.table.Table(header_fields)
         self.children.append(table)
         return table
+
+    def add_lst(self):
+        lst = quickrest.lst.Lst()
+        self.children.append(lst)
+        return lst
 
     def __str__(self):
         return "\n\n".join(str(child) for child in self.children)
