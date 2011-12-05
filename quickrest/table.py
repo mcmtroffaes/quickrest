@@ -11,6 +11,11 @@ class Table:
             raise ValueError("row has wrong length")
         self.rows.append(row)
 
+    def sort(self, header_fields):
+        indices = [self.header_fields.index(field) for field in header_fields]
+        key = lambda row: tuple(row[index] for index in indices)
+        self.rows = sorted(self.rows, key=key)
+
     def __str__(self):
         result = ""
         field_maxlen = [len(field) for field in self.header_fields]
