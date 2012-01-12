@@ -6,7 +6,7 @@ class Table:
         self.rows = []
 
     def add_row(self, row):
-        row = [str(elem) for elem in row]
+        row = [elem for elem in row]
         if len(row) != len(self.header_fields):
             raise ValueError("row has wrong length")
         self.rows.append(row)
@@ -23,7 +23,7 @@ class Table:
         field_maxlen = [len(field) for field in self.header_fields]
         for row in self.rows:
             for i, field in enumerate(row):
-                field_maxlen[i] = max(field_maxlen[i], len(field))
+                field_maxlen[i] = max(field_maxlen[i], len(str(field)))
         separator = " ".join(
             "{0:=<{1}}".format("", maxlen)
             for field, maxlen in zip(self.header_fields, field_maxlen)
