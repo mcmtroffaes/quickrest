@@ -11,7 +11,9 @@ class Table:
             raise ValueError("row has wrong length")
         self.rows.append(row)
 
-    def sort(self, header_fields):
+    def sort(self, header_fields=None):
+        if header_fields is None:
+            header_fields = self.header_fields
         indices = [self.header_fields.index(field) for field in header_fields]
         key = lambda row: tuple(row[index] for index in indices)
         self.rows = sorted(self.rows, key=key)
