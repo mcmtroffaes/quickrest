@@ -32,6 +32,14 @@ class Document:
         self.children.append(lst)
         return lst
 
+    def page_break(self):
+        self.add_paragraph("""
+.. raw:: pdf
+
+   PageBreak
+
+""")
+
     def __str__(self):
         return "\n\n".join(str(child) for child in self.children)
 
