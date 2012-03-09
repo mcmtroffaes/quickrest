@@ -40,6 +40,14 @@ class Document:
 
 """)
 
+    def add_spacer(self, x, y):
+        self.add_paragraph("""
+.. raw:: pdf
+
+   Spacer {0} {1}
+
+""".format(x, y))
+
     def __str__(self):
         return "\n\n".join(str(child) for child in self.children)
 
