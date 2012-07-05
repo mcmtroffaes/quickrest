@@ -1,8 +1,8 @@
 Getting Started
 ===============
 
-Overview
---------
+Example
+-------
 
 .. include:: ../README.rst
 
