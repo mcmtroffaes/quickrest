@@ -10,6 +10,10 @@ def test_document():
     table = doc.add_table(["name", "age"])
     table.add_row(["Karl", 31])
     table.add_row(["Marcus", 2])
+    doc.add_verbatim("""Hello world!
+How are things today?
+
+Couldn't be better, thank you very much.""")
     nose.tools.assert_equal(str(doc), """\
 Hello
 =====
@@ -24,4 +28,11 @@ name   age
 ====== ===
 Karl   31 
 Marcus 2  
-====== ===""")
+====== ===
+
+::
+
+  Hello world!
+  How are things today?
+
+  Couldn't be better, thank you very much.""")

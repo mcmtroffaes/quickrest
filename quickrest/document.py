@@ -1,7 +1,9 @@
 """Creating ReST documents."""
 
+import itertools
 import quickrest.table
 import quickrest.lst
+import textwrap
 
 class Document:
     def __init__(self):
@@ -31,6 +33,19 @@ class Document:
         lst = quickrest.lst.Lst()
         self.children.append(lst)
         return lst
+
+    def add_verbatim(self, text):
+        self.add_paragraph("::")
+        lines = text.splitlines()
+        self.add_paragraph(
+            u"\n".join(
+                itertools.chain(
+                    *(textwrap.wrap(
+                        line,
+                        width=80,
+                        initial_indent=u'  ',
+                        subsequent_indent=u'  ') if line else [u'']
+                      for line in lines))))
 
     def page_break(self):
         self.add_paragraph("""
