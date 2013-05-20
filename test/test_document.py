@@ -4,7 +4,9 @@ from quickrest.document import Document
 
 def test_document():
     doc = Document()
+    nose.tools.assert_false(doc)
     doc.add_chapter("Hello")
+    nose.tools.assert_true(doc)
     doc.add_paragraph("Just to say hello.")
     doc.add_section("World")
     table = doc.add_table(["name", "age"])

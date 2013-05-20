@@ -66,6 +66,9 @@ class Document:
     def __str__(self):
         return "\n\n".join(str(child) for child in self.children)
 
+    def __nonzero__(self):
+        return bool(self.children)
+
     def writepdf(self, filename, args=None):
         """Export document to a pdf file."""
         import rst2pdf.createpdf
