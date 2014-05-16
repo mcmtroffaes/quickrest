@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 
+import io
 from distutils.core import setup
 
-with open("README.rst", "rb") as readme_file:
-    doclines = readme_file.read().split("\n")
 
-with open("VERSION", "rb") as version_file:
-    version = version_file.read().strip()
+def readfile(filename):
+    with io.open(filename, encoding="utf-8") as stream:
+        return stream.read().split("\n")
+
+doclines = readfile("README.rst")
+version = readfile("VERSION")[0].strip()
+
 
 setup(
     name='quickrest',
