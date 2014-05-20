@@ -81,3 +81,9 @@ class Document:
         with open(txtfile, "wb") as stream:
             stream.write(str(self))
         rst2pdf.createpdf.main([txtfile] + args)
+
+    def writehtml(self, filename):
+        """Export document to a html file."""
+        from docutils.core import publish_string
+        with open(filename, "wb") as stream:
+            stream.write(publish_string(source=str(self), writer_name="html"))
