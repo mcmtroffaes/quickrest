@@ -1,5 +1,8 @@
 """Simple ReST table."""
 
+import itertools
+
+
 class Table:
     def __init__(self, header_fields):
         self.header_fields = header_fields
@@ -42,4 +45,42 @@ class Table:
                 for field, maxlen in zip(row, field_maxlen))
             result += "\n"
         result += separator
+        return result
+
+    def simplestr(self):
+        return str(self)
+
+    def gridstr(self):
+
+        def maxlinelen(s):
+            return max(len(line) for line in s.split("\n"))
+
+        def fieldsbyline(fields):
+            return itertools.izip_longest(
+                *[str(field).split("\n") for field in fields], fillvalue="")
+
+        result = ""
+        field_maxlen = [maxlinelen(field) for field in self.header_fields]
+        for row in self.rows:
+            for i, field in enumerate(row):
+                field_maxlen[i] = max(field_maxlen[i], maxlinelen(str(field)))
+        separator1 = "+" + "+".join(
+            "{0:-<{1}}".format("", maxlen) for maxlen in field_maxlen) + "+"
+        separator2 = separator1.replace("-", "=")
+        result += separator1
+        result += "\n"
+        for fields in fieldsbyline(self.header_fields):
+            result += "|" + "|".join(
+                "{0: <{1}}".format(field, maxlen)
+                for field, maxlen in zip(fields, field_maxlen)) + "|"
+            result += "\n"
+        result += separator2
+        for row in self.rows:
+            result += "\n"
+            for fields in fieldsbyline(row):
+                result += "|" + "|".join(
+                    "{0: <{1}}".format(field, maxlen)
+                    for field, maxlen in zip(fields, field_maxlen)) + "|"
+                result += "\n"
+            result += separator1
         return result
