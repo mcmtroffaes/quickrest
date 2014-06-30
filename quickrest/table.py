@@ -1,6 +1,6 @@
 """Simple ReST table."""
 
-import itertools
+from six.moves import zip_longest
 
 
 class Table:
@@ -56,7 +56,7 @@ class Table:
             return max(len(line) for line in s.split("\n"))
 
         def fieldsbyline(fields):
-            return itertools.izip_longest(
+            return zip_longest(
                 *[str(field).split("\n") for field in fields], fillvalue="")
 
         result = ""
@@ -64,23 +64,23 @@ class Table:
         for row in self.rows:
             for i, field in enumerate(row):
                 field_maxlen[i] = max(field_maxlen[i], maxlinelen(str(field)))
-        separator1 = "+" + "+".join(
-            "{0:-<{1}}".format("", maxlen) for maxlen in field_maxlen) + "+"
+        separator1 = "+-" + "-+-".join(
+            "{0:-<{1}}".format("", maxlen) for maxlen in field_maxlen) + "-+"
         separator2 = separator1.replace("-", "=")
         result += separator1
         result += "\n"
         for fields in fieldsbyline(self.header_fields):
-            result += "|" + "|".join(
+            result += "| " + " | ".join(
                 "{0: <{1}}".format(field, maxlen)
-                for field, maxlen in zip(fields, field_maxlen)) + "|"
+                for field, maxlen in zip(fields, field_maxlen)) + " |"
             result += "\n"
         result += separator2
         for row in self.rows:
             result += "\n"
             for fields in fieldsbyline(row):
-                result += "|" + "|".join(
+                result += "| " + " | ".join(
                     "{0: <{1}}".format(field, maxlen)
-                    for field, maxlen in zip(fields, field_maxlen)) + "|"
+                    for field, maxlen in zip(fields, field_maxlen)) + " |"
                 result += "\n"
             result += separator1
         return result
